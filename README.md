@@ -13,7 +13,7 @@ This command can close a following current window:
 * preview window
 * scratch window (which is `&buftype == 'nofile'`)
 
-but otherwise this command can not close.
+but otherwise this command CAN NOT close.
 
 ## License
 
