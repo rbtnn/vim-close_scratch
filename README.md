@@ -1,0 +1,1 @@
+# vim-close_scratch
