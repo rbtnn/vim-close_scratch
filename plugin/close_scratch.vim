@@ -1,36 +1,9 @@
 
 scriptencoding utf-8
 
-function! s:errormsg(msg) abort
-    echohl ErrorMsg
-    echo a:msg
-    echohl None
-endfunction
+let g:loaded_close_scratch = 1
 
-function! s:close(q_bang) abort
-    if a:q_bang == '!'
-        close!
-    else
-        close
-    endif
-endfunction
-
-function! s:close_scratch(q_bang) abort
-    let bnr = bufnr('%')
-    if 0 <= index(term_list(), bnr)
-        if term_getstatus(bnr) == 'finished'
-            call s:close(a:q_bang)
-        else
-            call s:errormsg('It has not yet finished.')
-        endif
-    elseif 0 <= index(['quickfix', 'help', 'nofile'], &buftype)
-        call s:close(a:q_bang)
-    elseif &previewwindow
-        call s:close(a:q_bang)
-    else
-        call s:errormsg('It is not finished terminal, quickfix, preview, scratch or help window.')
-    endif
-endfunction
-
-command! -nargs=0 -bar -bang CloseScratch  :call <SID>close_scratch(<q-bang>)
+if get(g:, 'close_scratch_define_commands', 1)
+    command! -nargs=0 -bar -bang CloseScratch  :call close_scratch#exec(<q-bang>)
+endif
 
