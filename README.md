@@ -15,6 +15,11 @@ This command can close a following current window:
 
 but otherwise this command CAN NOT close.
 
+## Concepts
+
+* This plugin does not provide to customize user-settings.
+* This plugin provides only one command.
+
 ## License
 
 Distributed under MIT License. See LICENSE.
