@@ -34,9 +34,17 @@ endfunction
 
 function! s:close(q_bang) abort
     if a:q_bang == '!'
-        close!
+        if (1 == winnr('$')) && (1 == tabpagenr('$'))
+            quit!
+        else
+            close!
+        endif
     else
-        close
+        if (1 == winnr('$')) && (1 == tabpagenr('$'))
+            quit
+        else
+            close
+        endif
     endif
 endfunction
 
