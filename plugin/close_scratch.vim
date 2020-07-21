@@ -10,6 +10,6 @@ endif
 if get(g:, 'close_scratch_define_augroup', 0)
     augroup close_scratch
         autocmd!
-        autocmd FileType   * :nnoremap <buffer><nowait>q      :<C-u>call close_scratch#exec('')<cr>
+        autocmd BufEnter   * :nnoremap <buffer><nowait>q      :<C-u>call close_scratch#exec('')<cr>
     augroup END
 endif
