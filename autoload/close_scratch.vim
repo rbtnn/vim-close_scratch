@@ -1,18 +1,28 @@
 
 function! close_scratch#exec(q_bang) abort
-    let bnr = bufnr('%')
-    if 0 <= index(term_list(), bnr)
-        if term_getstatus(bnr) == 'finished'
-            call s:close(a:q_bang)
-        else
-            call s:errormsg('It has not yet finished.')
-        endif
-    elseif 0 <= index(['quickfix', 'help', 'nofile'], &buftype)
-        call s:close(a:q_bang)
-    elseif &previewwindow
+    if close_scratch#is_target_buffer()
         call s:close(a:q_bang)
     else
         call s:errormsg('It is not finished terminal, quickfix, preview, scratch or help window.')
+    endif
+endfunction
+
+function! close_scratch#is_target_buffer() abort
+    let bnr = bufnr('%')
+    if 0 <= index(term_list(), bnr)
+        if term_getstatus(bnr) == 'finished'
+            return v:true
+        else
+            return v:false
+        endif
+    elseif 0 <= index(['quickfix', 'help', 'nofile'], &buftype)
+        return v:true
+    elseif &previewwindow
+        return v:true
+    elseif !&modified && empty(bufname())
+        return v:true
+    else
+        return v:false
     endif
 endfunction
 
