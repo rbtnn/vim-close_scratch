@@ -15,7 +15,9 @@ function! close_scratch#is_target_buffer() abort
         else
             return v:false
         endif
-    elseif 0 <= index(['quickfix', 'help', 'nofile'], &buftype)
+    elseif 0 <= index(['quickfix', 'nofile'], &buftype)
+        return v:true
+    elseif 0 <= index(['help'], &filetype)
         return v:true
     elseif &previewwindow
         return v:true
