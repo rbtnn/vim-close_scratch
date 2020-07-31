@@ -9,13 +9,16 @@ endfunction
 
 function! close_scratch#is_target_buffer() abort
     let bnr = bufnr('%')
-    if 0 <= index(term_list(), bnr)
-        if term_getstatus(bnr) == 'finished'
-            return v:true
-        else
-            return v:false
+    if !has('nvim')
+        if 0 <= index(term_list(), bnr)
+            if term_getstatus(bnr) == 'finished'
+                return v:true
+            else
+                return v:false
+            endif
         endif
-    elseif 0 <= index(['quickfix', 'nofile'], &buftype)
+    endif
+    if 0 <= index(['quickfix', 'nofile'], &buftype)
         return v:true
     elseif 0 <= index(['help'], &filetype)
         return v:true
